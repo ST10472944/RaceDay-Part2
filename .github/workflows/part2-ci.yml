@@ -1,0 +1,27 @@
+name: Part 2 - API Build
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore
+        run: dotnet restore RaceDay.API/RaceDay.API.csproj
+
+      - name: Build
+        run: dotnet build RaceDay.API/RaceDay.API.csproj --no-restore --configuration Release
+
+      - name: Build succeeded
+        run: echo "RaceDay API builds successfully on .NET 9"
