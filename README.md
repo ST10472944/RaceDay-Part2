@@ -30,6 +30,8 @@ Unit tests are included using xUnit and `Microsoft.AspNetCore.Mvc.Testing`. They
 ## Roles
 - **Organiser** – Create, update, delete events. Requires Organiser JWT.
 - **Participant** – View events and enroll. Cannot create or modify events.
+  
+![Green build](docs/green-build.png)
 
 ## Video Presentation
 [Watch the Part 2 walkthrough]
