@@ -40,5 +40,5 @@ Unit tests use xUnit and `Microsoft.AspNetCore.Mvc.Testing`. They currently fail
 - **Organiser** – Create, update, and delete events. Requires an Organiser-role JWT.
 - **Participant** – View events and enroll. Cannot create or modify events.
 
-## Video Presentation
-[Watch the Part 2 walkthrough](PASTE_YOUR_YOUTUBE_LINK_HERE)
+
+
