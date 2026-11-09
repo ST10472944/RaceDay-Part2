@@ -1,44 +1,39 @@
-# RaceDay - Part 2: RESTful API Development
+# RaceDay - Full Stack Application (Parts 1, 2 & 3)
 
-## Overview
-RESTful API built with ASP.NET Core (.NET 9), Entity Framework Core, and SQL Server. Implements JWT authentication, role-based access control (Organiser / Participant), and Swagger UI for endpoint testing.
+This repository contains the complete Portfolio of Evidence for the RaceDay event management system.
 
-## Solution Structure
-- **RaceDay.API** – Main API project
-  - `Controllers/AuthController.cs` – Register and login endpoints (JWT)
-  - `Controllers/EventsController.cs` – Event CRUD with role-based authorization
-  - `Data/RaceDayDbContext.cs` – EF Core DbContext
-  - `Data/DbSeeder.cs` – Seeds sample users on startup
-  - `Migrations/` – EF Core migrations
-  - `Models/` – 6 entities (User, Event, Category, EventCategory, Enrolment, Result)
-- **RaceDay.API.Tests** – xUnit integration test project
+## Project Structure
+- **Part 1:** ERD, API Endpoints plan, and SQL Database script (`/docs` folder).
+- **Part 2:** RESTful API (`/RaceDay.API` folder) - Built with ASP.NET Core 9, EF Core, JWT Authentication, and Azure Blob Storage integration.
+- **Part 3:** MVC Web Application (`/RaceDay.MVC` folder) - Consumes the Part 2 API, implements session-based authentication, role-specific interfaces, and is containerised using Docker.
 
-## CI/CD Build Status
-![Green build](docs/green-build.png)
+## Roles and Features
+- **Organiser:** Can log in, view a dashboard of their events, create new events, and upload event banner images (handled via the API and Azure Blob).
+- **Participant:** Can log in, browse all upcoming events, enroll in events, and view their personal race history and results.
 
-## Functional Verification (via Swagger)
-| Scenario | Expected | Actual |
-|----------|----------|--------|
-| Login (Organiser) | 200 OK with JWT | ✅ Verified |
-| Login (Participant) | 200 OK with JWT | ✅ Verified |
-| Create Event (Organiser) | 201 Created | ✅ Verified |
-| Create Event (Participant) | 403 Forbidden | ✅ Verified |
-| Create Event (No Token) | 401 Unauthorized | ✅ Verified |
+## 🚀 Setup and Run Instructions
 
-## Unit Tests
-Unit tests use xUnit and `Microsoft.AspNetCore.Mvc.Testing`. They currently fail due to a known .NET 9 issue where `WebApplicationFactory` cannot locate `testhost.deps.json` — a widely-documented integration-testing problem in .NET 6+ projects. The API has been manually verified through Swagger as proof of functionality.
+### Prerequisites
+- .NET 9 SDK
+- SQL Server (SSMS)
+- Docker Desktop (for containerisation)
 
-## Setup Instructions
-1. Clone the repository.
-2. Run `database.sql` (from Part 1) in SSMS to create the database.
-3. Update the connection string in `appsettings.json` with your SQL Server details.
-4. Run `dotnet ef database update` to apply EF Core migrations.
-5. Run `dotnet run --project .\RaceDay.API\RaceDay.API.csproj`.
-6. Open `http://localhost:5045/swagger` in your browser.
+### 1. Database Setup
+Run the `database.sql` script (found in the Part 1 `/docs` folder) in SQL Server Management Studio to create the database and seed the initial data.
 
-## Roles
-- **Organiser** – Create, update, and delete events. Requires an Organiser-role JWT.
-- **Participant** – View events and enroll. Cannot create or modify events.
+### 2. Start the API (Part 2)
+1. Open the `RaceDay.API.sln` solution in Visual Studio.
+2. Right-click the `RaceDay.API` project and select **Debug** > **Start Without Debugging**.
+3. The API will launch and listen on `http://localhost:5045`. Swagger UI is available for testing.
 
+### 3. Start the MVC Web App (Part 3)
+1. In Visual Studio, right-click the `RaceDay.MVC` project and select **Debug** > **Start Without Debugging**.
+2. The web app will open in your browser (e.g., `https://localhost:7199`).
+3. Register a new account as an Organiser or Participant, or use the seeded credentials (Organiser: `organiser1@raceday.co.za` / `Password123!`).
 
+## 🐳 Running with Docker
+The MVC application is fully containerised. To build and run the application using Docker, run the following commands from the root directory (where the `.sln` file is located):
 
+```bash
+docker build -t raceday-mvc -f RaceDay.MVC/Dockerfile .
+docker run -p 8080:8080 raceday-mvc
