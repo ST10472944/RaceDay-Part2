@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "My Results";
+}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>My Personal Race History</h2>
+        <a href="/Participant/Browse" class="btn btn-primary">Browse More Events</a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="ps-4">Event Name</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Finish Time</th>
+                        <th>Position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="ps-4 fw-bold">Test Marathon</td>
+                        <td>01 Dec 2026</td>
+                        <td><span class="badge bg-success">Confirmed</span></td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td class="ps-4 fw-bold">Soweto Half Marathon</td>
+                        <td>15 Nov 2026</td>
+                        <td><span class="badge bg-success">Completed</span></td>
+                        <td>02:15:30</td>
+                        <td>45th of 512</td>
+                    </tr>
+                    <tr>
+                        <td class="ps-4 fw-bold">Cape Town Cycle Tour</td>
+                        <td>08 Mar 2026</td>
+                        <td><span class="badge bg-warning text-dark">Pending</span></td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

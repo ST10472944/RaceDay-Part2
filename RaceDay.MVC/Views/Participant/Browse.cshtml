@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Browse Events";
+    var events = Model;
+}
+<div class="container mt-4">
+    <h2 class="mb-4">Upcoming Road Events</h2>
+    <div class="row">
+        @if (events.GetArrayLength() == 0)
+        {
+            <p class="text-muted">No events available right now.</p>
+        }
+        else
+        {
+            @foreach (var ev in events.EnumerateArray())
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="https://via.placeholder.com/400x200?text=RaceDay+Event" class="card-img-top" alt="Event Banner" style="border-radius: 10px 10px 0 0; object-fit: cover; height: 200px;">
+                        <div class="card-body">
+                            <h4 class="card-title text-primary">@ev.GetProperty("title").GetString()</h4>
+                            <h6 class="card-subtitle mb-2 text-muted">📍 @ev.GetProperty("location").GetString()</h6>
+                            <p class="card-text">@ev.GetProperty("description").GetString()</p>
+                        </div>
+                        <div class="card-footer bg-white border-top-0 pb-3">
+                            <form method="post" action="/Participant/Enrol">
+                                <input type="hidden" name="eventId" value="@ev.GetProperty("eventId").GetInt32()" />
+                                <button type="submit" class="btn btn-outline-success w-100 rounded-pill fw-bold">Enter Event</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

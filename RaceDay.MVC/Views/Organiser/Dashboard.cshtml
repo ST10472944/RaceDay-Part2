@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Organiser Dashboard";
+    var events = Model;
+}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Manage Your Events</h2>
+        <a href="/Organiser/CreateEvent" class="btn btn-success">+ Create New Event</a>
+    </div>
+    <div class="row">
+        @if (events.GetArrayLength() == 0)
+        {
+            <div class="col-12">
+                <p class="text-muted">No events created yet. Click "Create New Event" to get started.</p>
+            </div>
+        }
+        else
+        {
+            @foreach (var ev in events.EnumerateArray())
+            {
+                <div class="col-md-4 mb-3">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">@ev.GetProperty("title").GetString()</h5>
+                            <p class="card-text text-muted">@ev.GetProperty("location").GetString()</p>
+                            <p class="card-text"><small class="text-muted">@ev.GetProperty("eventDate").GetDateTime().ToShortDateString()</small></p>
+                            <span class="badge bg-primary">@ev.GetProperty("status").GetString()</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
