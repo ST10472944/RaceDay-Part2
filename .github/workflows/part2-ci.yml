@@ -3,8 +3,6 @@ name: RaceDay Full Stack Build
 on:
   push:
     branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
 
 jobs:
   build:
@@ -19,10 +17,7 @@ jobs:
           dotnet-version: '9.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore RaceDay.API.sln
 
-      - name: Build API
-        run: dotnet build RaceDay.API/RaceDay.API.csproj --no-restore --configuration Release
-
-      - name: Build MVC App
-        run: dotnet build RaceDay.MVC/RaceDay.MVC.csproj --no-restore --configuration Release
+      - name: Build Solution (API & MVC)
+        run: dotnet build RaceDay.API.sln --no-restore --configuration Release
